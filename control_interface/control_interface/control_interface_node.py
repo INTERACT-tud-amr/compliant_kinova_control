@@ -166,17 +166,16 @@ class ControlInterfaceNode:
 
     def publish_pose(self):
         list_state = list(self.state.x)
+        quat = self.state.quat
         pose = PoseStamped()
         pose.header.stamp = rospy.Time.now()
         pose.pose.position.x = list_state[0]
         pose.pose.position.y = list_state[1]
         pose.pose.position.z = list_state[2]
-        """
-        pose.pose.orientation.x = list_state[3]
-        pose.pose.orientation.y = list_state[4]
-        pose.pose.orientation.z = list_state[5]
-        pose.pose.orientation.w = list_state[6]
-        """
+        pose.pose.orientation.x = quat[0]
+        pose.pose.orientation.y = quat[1]
+        pose.pose.orientation.z = quat[2]
+        pose.pose.orientation.w = quat[3]
         self.pub_current_pose.publish(pose)
         
 
